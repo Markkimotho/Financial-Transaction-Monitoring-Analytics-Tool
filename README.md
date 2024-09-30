@@ -1,14 +1,11 @@
 # Financial Transaction Monitoring & Analytics Tool
 
-![Logo](https://your-logo-url.com/logo.png) <!-- Replace with a logo URL -->
+![Logo](./Images/readme.jpeg) <!-- Replace with a logo URL -->
 
 ## Overview
-
 Welcome to the **Financial Transaction Monitoring & Analytics Tool**! This application is designed to help users manage their financial transactions, set budgets, and visualize their spending habits. Whether you're an individual or a small business owner, this tool can assist you in gaining insights into your financial activities.
 
-
 ## Features
-
 ### 1. User Management
 - **Secure Registration**: Users can create accounts with email verification to ensure security.
 - **Authentication**: Supports both standard login and OAuth login options (Google/Facebook) for convenience.
@@ -44,11 +41,9 @@ Welcome to the **Financial Transaction Monitoring & Analytics Tool**! This appli
 - **Feedback Mechanism**: Users can submit feedback and suggestions for improvements to enhance the tool continuously.
 
 ## Getting Started
-
 To get started with the Financial Transaction Monitoring & Analytics Tool, clone this repository and follow the instructions below.
 
 ### Clone the Repository
-
 ```bash
 git clone https://github.com/Markkimotho/Financial-Transaction-Monitoring-Analytics-Tool.git
 ```
@@ -68,11 +63,9 @@ Start the development server:
 npm start
 ```
 
-
 ## Accessibility
 Access the tool through the web interface at: [Website](https://example.com
 )
-
 
 ## Contributing
 Contributions are welcome! If you'd like to improve this tool, feel free to submit a pull request or open an issue.Please follow these steps:
@@ -90,7 +83,7 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 ## Acknowledgements
 Thanks for checking out the Financial Transaction Monitoring & Analytics Tool! Happy budgeting and tracking!
 
-
+---
 Feel free to make any additional modifications or let me know if there's anything else you'd like to include!
 
 
