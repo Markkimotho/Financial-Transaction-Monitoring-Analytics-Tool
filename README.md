@@ -1,6 +1,6 @@
 # Financial Transaction Monitoring & Analytics Tool
 
-![Logo](./Images/readme.jpeg) <!-- Replace with a logo URL -->
+![Logo](./images/readme.jpeg) <!-- Replace with a logo URL -->
 
 ## Overview
 Welcome to the **Financial Transaction Monitoring & Analytics Tool**! This application is designed to help users manage their financial transactions, set budgets, and visualize their spending habits. Whether you're an individual or a small business owner, this tool can assist you in gaining insights into your financial activities.
