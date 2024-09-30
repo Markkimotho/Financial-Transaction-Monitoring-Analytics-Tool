@@ -63,6 +63,34 @@ Start the development server:
 npm start
 ```
 
+```graphql
+├── Images
+│   └── readme.jpeg          # Image for README or documentation
+├── LICENSE                  # License file for the project
+├── README.md                # Project README file
+├── src                      # Source code directory
+│   ├── __init__.py          # Makes src a package
+│   ├── main.py              # Main application entry point
+│   ├── models.py            # Data models (e.g., Transaction, User)
+│   ├── api.py               # API routes and logic
+│   └── utils.py             # Utility functions
+├── frontend                 # Frontend code directory
+│   ├── index.html           # Main HTML file
+│   ├── css                  # CSS files
+│   │   └── styles.css       # Styles for the frontend
+│   ├── js                   # JavaScript files
+│   │   └── app.js           # Main JavaScript file
+│   └── images               # Any frontend images
+├── tests                    # Directory for unit tests
+│   ├── __init__.py          # Makes tests a package
+│   ├── test_api.py          # Tests for API endpoints
+│   ├── test_models.py       # Tests for data models
+│   └── test_utils.py        # Tests for utility functions
+├── requirements.txt         # List of project dependencies
+└── .gitignore               # Git ignore file
+
+```
+
 ## Accessibility
 Access the tool through the web interface at: [Website](https://example.com
 )
