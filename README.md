@@ -64,30 +64,42 @@ npm start
 ```
 
 ```graphql
-├── Images
-│   └── readme.jpeg          # Image for README or documentation
-├── LICENSE                  # License file for the project
-├── README.md                # Project README file
-├── src                      # Source code directory
-│   ├── __init__.py          # Makes src a package
-│   ├── main.py              # Main application entry point
-│   ├── models.py            # Data models (e.g., Transaction, User)
-│   ├── api.py               # API routes and logic
-│   └── utils.py             # Utility functions
-├── frontend                 # Frontend code directory
-│   ├── index.html           # Main HTML file
-│   ├── css                  # CSS files
-│   │   └── styles.css       # Styles for the frontend
-│   ├── js                   # JavaScript files
-│   │   └── app.js           # Main JavaScript file
-│   └── images               # Any frontend images
-├── tests                    # Directory for unit tests
-│   ├── __init__.py          # Makes tests a package
-│   ├── test_api.py          # Tests for API endpoints
-│   ├── test_models.py       # Tests for data models
-│   └── test_utils.py        # Tests for utility functions
-├── requirements.txt         # List of project dependencies
-└── .gitignore               # Git ignore file
+├── images                      # Directory for images
+│   └── readme.jpeg             # Image for README or documentation
+├── LICENSE                     # License file for the project
+├── README.md                   # Project README file containing an overview and setup instructions
+├── requirements.txt            # List of project dependencies for Python packages
+├── .gitignore                  # Specifies files and directories to be ignored by Git
+├── config                      # Configuration files
+│   └── config.py               # Configuration settings for different environments (e.g., development, production)
+├── docker                      # Docker configurations
+│   ├── Dockerfile              # Instructions for building the Docker image
+│   └── docker-compose.yml      # Defines and runs multi-container Docker applications
+├── k8s                         # Kubernetes manifests
+│   ├── deployment.yaml         # Configuration for deploying the application on Kubernetes
+│   └── service.yaml            # Configuration for exposing the application via a service
+├── src                         # Source code directory
+│   ├── __init__.py             # Makes src a package; allows imports from this directory
+│   ├── main.py                 # Main application entry point; starts the application
+│   ├── models.py               # Data models (e.g., Transaction, User) defining the structure of data
+│   ├── api.py                  # API routes and logic for handling requests
+│   ├── utils.py                # Utility functions for reusable code
+│   └── logger.py               # Logging setup for tracking application behavior
+├── frontend                    # Frontend code directory
+│   ├── index.html              # Main HTML file for the frontend
+│   ├── css                     # Directory for CSS files
+│   │   └── styles.css          # Styles for the frontend
+│   ├── js                      # Directory for JavaScript files
+│   │   └── app.js              # Main JavaScript file containing frontend logic
+│   └── images                  # Directory for any frontend images
+├── tests                       # Directory for unit tests
+│   ├── __init__.py             # Makes tests a package; allows imports from this directory
+│   ├── test_api.py             # Tests for API endpoints
+│   ├── test_models.py          # Tests for data models to ensure correct functionality
+│   ├── test_utils.py           # Tests for utility functions
+│   └── test_integration.py     # Integration tests for checking overall functionality
+├── docs                        # Documentation files (optional)
+│   └── api_documentation.md    # Documentation for API endpoints and usage
 
 ```
 
