@@ -1,2 +1,5 @@
 matplotlib
 pandas
+Django>=4.0,<5.0
+djangorestframework
+psycopg2-binary  # If you're using PostgreSQL
