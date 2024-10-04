@@ -180,4 +180,4 @@
   - **Response**: 
     - **200 OK**: Returns data for monthly trends.
 
-(Will Add more API endpoint documentation here)
+(Will Add more API endpoints documentation here)
