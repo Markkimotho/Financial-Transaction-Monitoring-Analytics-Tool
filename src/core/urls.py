@@ -16,7 +16,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
+@api_view(['GET'])
+def api_root(request):
+    """Root endpoint providing overview of API."""
+    return Response({
+        'message': 'Financial Monitoring & Analytics API',
+        'version': '1.0.0',
+        'documentation': request.build_absolute_uri('/api/docs/'),
+        'api': request.build_absolute_uri('/api/'),
+    })
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', api_root, name='api-root'),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('api/', include('transactions.urls')),
+    path('api-auth/', include('rest_framework.urls')),
 ]

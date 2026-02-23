@@ -1,83 +1,337 @@
-# This file will contain my models
-
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator, MaxValueValidator
+from decimal import Decimal
+import uuid
 
-class User(models.Model):
+
+class CustomUser(AbstractUser):
     """
+    Extended User model with financial preferences.
+    FR1 & FR2 support.
     """
-    email = models.EmailField(unique=True)
-    username = models.CharField(max_length=150, unique=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    currency_preference = models.CharField(
+        max_length=3,
+        default='USD',
+        help_text="ISO 4217 currency code"
+    )
+    profile_image = models.ImageField(
+        upload_to='profile_images/',
+        null=True,
+        blank=True
+    )
+    phone_number = models.CharField(
+        max_length=15,
+        null=True,
+        blank=True
+    )
     address = models.TextField(null=True, blank=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
+    
+    # Security & audit
+    email_verified = models.BooleanField(default=False)
+    two_factor_enabled = models.BooleanField(default=False)
     last_login = models.DateTimeField(null=True, blank=True)
-    is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.username
+        return self.email
 
-class UserProfile(models.Model):
-    phone_number = models.CharField(max_length=15, null=True, blank=True)
-    address = models.TextField(null=True, blank=True)
-    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-class Transaction(models.Model):
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    category = models.CharField(max_length=100)
-    date = models.DateTimeField(auto_now_add=True)
-    description = models.TextField(null=True, blank=True)
-    transaction_type = models.CharField(max_length=20, choices=[('Income', 'Income'), ('Expense', 'Expense')])
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='transactions')
-
-class Budget(models.Model):
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    category = models.CharField(max_length=100)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='budgets')
-
-class Visualization(models.Model):
-    chart_type = models.CharField(max_length=50)
-    data_points = models.TextField()
-    labels = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visualizations')
-
-class Alert(models.Model):
-    message = models.TextField()
-    is_read = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='alerts')
 
 class Category(models.Model):
+    """
+    Transaction categories for organizing expenses and income.
+    Supports budgeting and analytics.
+    """
+    CATEGORY_TYPES = [
+        ('EXPENSE', 'Expense'),
+        ('INCOME', 'Income'),
+        ('TRANSFER', 'Transfer'),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='categories'
+    )
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    category_type = models.CharField(
+        max_length=20,
+        choices=CATEGORY_TYPES,
+        default='EXPENSE'
+    )
+    color = models.CharField(
+        max_length=7,
+        default='#000000',
+        help_text="Hex color code for UI visualization"
+    )
+    icon = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        help_text="Icon identifier for UI"
+    )
+    is_default = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-class Goal(models.Model):
-    title = models.CharField(max_length=100)
-    target_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    current_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    deadline = models.DateTimeField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='goals')
+    class Meta:
+        unique_together = ['user', 'name']
+        verbose_name_plural = 'Categories'
 
-class AuditLog(models.Model):
-    action = models.CharField(max_length=255)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    details = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='audit_logs')
+    def __str__(self):
+        return f"{self.user.username} - {self.name}"
 
-class Report(models.Model):
-    report_type = models.CharField(max_length=50)
-    generated_on = models.DateTimeField(auto_now_add=True)
-    report_file = models.FileField(upload_to='reports/')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reports')
 
-class BankIntegration(models.Model):
-    bank_name = models.CharField(max_length=100)
-    api_key = models.CharField(max_length=255)
-    account_number = models.CharField(max_length=30)
-    last_synced = models.DateTimeField(null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bank_integrations')
+class Transaction(models.Model):
+    """
+    Core Transaction model with soft deletes.
+    FR4 (ACID), FR5 (Soft Deletes), and FR6 (Bulk actions).
+    """
+    TRANSACTION_TYPES = [
+        ('INCOME', 'Income'),
+        ('EXPENSE', 'Expense'),
+        ('TRANSFER', 'Transfer'),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='transactions'
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='transactions'
+    )
+    amount = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.01'))]
+    )
+    transaction_type = models.CharField(
+        max_length=20,
+        choices=TRANSACTION_TYPES,
+        default='EXPENSE'
+    )
+    description = models.TextField(null=True, blank=True)
+    
+    # Timestamp tracking
+    transaction_date = models.DateTimeField(
+        help_text="When the transaction occurred"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    # Soft delete
+    is_deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    delete_reason = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Reason for soft deletion"
+    )
+    
+    # Tags and metadata
+    tags = models.TextField(
+        blank=True,
+        help_text="Comma-separated tags for organization"
+    )
+    attachment = models.FileField(
+        upload_to='transaction_attachments/',
+        null=True,
+        blank=True,
+        help_text="Receipt or invoice attachment"
+    )
+    
+    # External integration
+    recurring_transaction = models.ForeignKey(
+        'RecurringTransaction',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='transactions'
+    )
+
+    class Meta:
+        ordering = ['-transaction_date']
+        indexes = [
+            models.Index(fields=['user', 'transaction_date']),
+            models.Index(fields=['user', 'category', 'transaction_date']),
+            models.Index(fields=['is_deleted']),
+        ]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.amount} ({self.category})"
+
+
+class RecurringTransaction(models.Model):
+    """
+    Support for recurring transactions (subscriptions, salary, etc.).
+    FR8: Recurring Transactions.
+    """
+    FREQUENCY_CHOICES = [
+        ('DAILY', 'Daily'),
+        ('WEEKLY', 'Weekly'),
+        ('BIWEEKLY', 'Bi-weekly'),
+        ('MONTHLY', 'Monthly'),
+        ('QUARTERLY', 'Quarterly'),
+        ('ANNUAL', 'Annual'),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='recurring_transactions'
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='recurring_transactions'
+    )
+    
+    name = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
+    amount = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.01'))]
+    )
+    frequency = models.CharField(
+        max_length=20,
+        choices=FREQUENCY_CHOICES
+    )
+    transaction_type = models.CharField(
+        max_length=20,
+        choices=Transaction.TRANSACTION_TYPES
+    )
+    
+    # Date management
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(null=True, blank=True)
+    next_due_date = models.DateTimeField()
+    
+    # Control
+    is_active = models.BooleanField(default=True)
+    auto_execute = models.BooleanField(
+        default=False,
+        help_text="Automatically create transactions"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['next_due_date']
+
+    def __str__(self):
+        return f"{self.user.username} - {self.name} ({self.frequency})"
+
+
+class Budget(models.Model):
+    """
+    Budget tracking with alerts.
+    FR7: Over-budget Triggers.
+    """
+    PERIOD_CHOICES = [
+        ('DAILY', 'Daily'),
+        ('WEEKLY', 'Weekly'),
+        ('MONTHLY', 'Monthly'),
+        ('QUARTERLY', 'Quarterly'),
+        ('ANNUAL', 'Annual'),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='budgets'
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='budgets'
+    )
+    
+    monthly_limit = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        validators=[MinValueValidator(Decimal('1.00'))]
+    )
+    period = models.CharField(
+        max_length=20,
+        choices=PERIOD_CHOICES,
+        default='MONTHLY'
+    )
+    
+    # Date tracking
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
+    
+    # Alert thresholds (in percentage)
+    alert_threshold = models.IntegerField(
+        default=80,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        help_text="Alert when spending reaches this percentage"
+    )
+    
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ['user', 'category', 'start_date']
+        ordering = ['-start_date']
+
+    def __str__(self):
+        return f"{self.user.username} - {self.category.name} - ${self.monthly_limit}"
+
+
+class BudgetAlert(models.Model):
+    """
+    Notification when budget thresholds are crossed.
+    """
+    ALERT_TYPES = [
+        ('WARNING', 'Warning'),
+        ('CRITICAL', 'Critical'),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    budget = models.ForeignKey(
+        Budget,
+        on_delete=models.CASCADE,
+        related_name='alerts'
+    )
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='budget_alerts'
+    )
+    
+    alert_type = models.CharField(
+        max_length=20,
+        choices=ALERT_TYPES
+    )
+    message = models.TextField()
+    current_spending = models.DecimalField(
+        max_digits=12,
+        decimal_places=2
+    )
+    percentage_used = models.IntegerField()
+    
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Alert: {self.budget.category.name} - {self.alert_type}"
