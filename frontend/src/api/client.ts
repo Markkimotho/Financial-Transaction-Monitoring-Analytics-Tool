@@ -57,6 +57,8 @@ export const authAPI = {
     apiClient.post('/auth/register/', data),
   login: (data: { username: string; password: string }) =>
     apiClient.post('/auth/login/', data),
+  getCurrentUser: () =>
+    apiClient.get('/users/me/'),
   logout: () => {
     localStorage.removeItem('access_token')
     localStorage.removeItem('refresh_token')

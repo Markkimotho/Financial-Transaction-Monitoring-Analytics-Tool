@@ -33,7 +33,7 @@ if not User.objects.filter(username='testuser').exists():
         password='testpass123',
         first_name='Test',
         last_name='User',
-        currency_preference='USD'
+        currency_preference='KES'
     )
     print("✓ Test user 'testuser' created (password: testpass123)")
 else:
