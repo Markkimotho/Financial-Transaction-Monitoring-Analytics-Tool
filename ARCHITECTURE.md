@@ -1,4 +1,4 @@
-# 📐 System Architecture & Technical Reference
+# System Architecture & Technical Reference
 
 **Version**: 2.0.0  
 **Last Updated**: February 24, 2026  
@@ -279,7 +279,7 @@
 
 ## Component Architecture
 
-### 🎨 Frontend Component Structure
+### Frontend Component Structure
 
 ```
 FRONTEND DIRECTORY TREE
@@ -384,7 +384,7 @@ BACKEND DIRECTORY TREE
 
 ## Data Flow & Workflows
 
-### 🔐 Authentication Flow
+### Authentication Flow
 
 ```
 USER LOGIN WORKFLOW
