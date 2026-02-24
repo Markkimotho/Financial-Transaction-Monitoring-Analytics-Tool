@@ -51,35 +51,33 @@ export default function Layout({ children }: LayoutProps) {
     return (
       <Link
         to={to}
-        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-mono font-500 ${
           isActive
-            ? isDark ? 'bg-blue-600/20 border border-blue-500/30 text-blue-400' : 'bg-blue-100 border border-blue-300 text-blue-600'
-            : isDark ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+            ? 'bg-frost-3/20 border border-frost-3/50 text-frost-2 shadow-lg'
+            : 'text-nord-4 hover:text-frost-3 hover:bg-nord-3/30 hover:border border-nord-3/30'
         }`}
       >
         <span className="flex-shrink-0">{Icon}</span>
-        {sidebarOpen && <span className="font-medium">{label}</span>}
+        {sidebarOpen && <span>{label}</span>}
       </Link>
     )
   }
 
   return (
-    <div className={`flex h-screen transition-colors ${isDark ? 'bg-black text-white' : 'bg-gray-100 text-gray-900'}`}>
+    <div className="flex h-screen bg-nord-0">
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-40 w-64 border-r transform transition-transform duration-300 md:relative md:translate-x-0 ${
-        isDark ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'
-      } ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div className={`fixed inset-y-0 left-0 z-40 w-64 border-r border-nord-3/30 transform transition-transform duration-300 md:relative md:translate-x-0 bg-nord-1/60 backdrop-blur-md ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         {/* Sidebar Header */}
-        <div className={`flex items-center justify-between p-6 border-b ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
+        <div className="flex items-center justify-between p-6 border-b border-nord-3/30">
           {sidebarOpen && (
-            <Link to="/app" className="flex items-center gap-2">
-              <PieChart className="w-6 h-6 text-blue-400" />
-              <h1 className="text-lg font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">FinTrack</h1>
+            <Link to="/app" className="flex items-center gap-2 group">
+              <PieChart className="w-6 h-6 text-frost-3 group-hover:text-frost-2 transition-colors" />
+              <h1 className="text-lg font-display font-700 bg-gradient-to-r from-frost-3 via-frost-2 to-frost-1 bg-clip-text text-transparent">FinTrack</h1>
             </Link>
           )}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className={`p-1.5 rounded-lg transition-colors md:hidden ${isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-200'}`}
+            className="p-1.5 rounded-lg transition-colors md:hidden hover:bg-nord-3/30 text-frost-3"
           >
             {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -95,12 +93,10 @@ export default function Layout({ children }: LayoutProps) {
         </nav>
 
         {/* Logout Button */}
-        <div className={`absolute bottom-0 left-0 right-0 p-4 border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-nord-3/30">
           <button
             onClick={handleLogout}
-            className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-colors font-medium ${
-              isDark ? 'bg-red-600/20 border border-red-500/30 text-red-400 hover:bg-red-600/30' : 'bg-red-100 border border-red-300 text-red-600 hover:bg-red-200'
-            }`}
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all duration-200 font-display font-600 bg-aurora1/20 border border-aurora1/40 text-aurora1 hover:bg-aurora1/30 hover:border-aurora1/60 hover:shadow-lg"
           >
             <LogOut className="w-5 h-5" />
             {sidebarOpen && <span>Logout</span>}
@@ -111,36 +107,28 @@ export default function Layout({ children }: LayoutProps) {
       {/* Overlay for mobile sidebar */}
       {sidebarOpen && (
         <div
-          className={`fixed inset-0 z-30 md:hidden ${isDark ? 'bg-black/50' : 'bg-black/30'}`}
+          className="fixed inset-0 z-30 md:hidden bg-black/40 backdrop-blur-sm"
           onClick={() => setSidebarOpen(false)}
         ></div>
       )}
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden bg-nord-0">
         {/* Top Bar */}
-        <div className={`border-b px-6 py-4 transition-colors ${
-          isDark ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'
-        }`}>
+        <div className="border-b border-nord-3/30 px-6 py-4 backdrop-blur-md bg-nord-1/40">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className={`p-2 rounded-lg transition-colors md:hidden ${
-                  isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-100'
-                }`}
+                className="p-2 rounded-lg transition-colors md:hidden hover:bg-nord-3/30 text-frost-3"
               >
                 <Menu className="w-6 h-6" />
               </button>
-              <h2 className={`text-2xl font-bold ${
-                isDark ? 'text-white' : 'text-gray-900'
-              }`}>{getPageTitle()}</h2>
+              <h2 className="text-2xl font-display font-700 text-nord-5">{getPageTitle()}</h2>
             </div>
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-lg transition-colors ${
-                isDark ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
+              className="p-2 rounded-lg transition-all duration-200 text-frost-3 hover:text-frost-2 hover:bg-nord-3/30"
               aria-label="Toggle theme"
             >
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}

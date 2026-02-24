@@ -16,186 +16,148 @@ export default function LandingPage() {
   const features = [
     {
       icon: TrendingUp,
-      title: 'Smart Analytics',
-      description: 'AI-powered insights into your spending patterns and financial health',
-      color: 'from-blue-500 to-cyan-500'
+      title: 'Live Analytics',
+      description: 'Deep insights into spending patterns with real-time data visualization',
+      accent: 'frost-3'
     },
     {
       icon: Lock,
-      title: 'Bank-Level Security',
-      description: 'Enterprise-grade encryption keeps your financial data safe',
-      color: 'from-purple-500 to-pink-500'
+      title: 'Cryptographic Security',
+      description: 'Military-grade encryption on all financial data transfers',
+      accent: 'frost-2'
     },
     {
       icon: Zap,
-      title: 'Real-time Updates',
-      description: 'Instant transaction monitoring across all your accounts',
-      color: 'from-orange-500 to-red-500'
+      title: 'Instant Sync',
+      description: 'Millisecond transaction updates across all connected accounts',
+      accent: 'aurora3'
     },
     {
       icon: BarChart3,
-      title: 'Budget Planning',
-      description: 'Set goals and get alerts when you\'re close to limits',
-      color: 'from-green-500 to-emerald-500'
+      title: 'Predictive Budgets',
+      description: 'AI-assisted goal planning with anomaly detection',
+      accent: 'aurora4'
     },
   ]
 
   const stats = [
-    { value: '10K+', label: 'Active Users' },
-    { value: '$2B+', label: 'Tracked' },
-    { value: '99.9%', label: 'Uptime' },
+    { value: '10K+', label: 'Active Users', accent: 'frost-3' },
+    { value: '$2B+', label: 'Monitored Assets', accent: 'aurora4' },
+    { value: '99.9%', label: 'System Uptime', accent: 'aurora3' },
   ]
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
+    <div className="min-h-screen bg-nord-0 text-nord-4 overflow-hidden">
       <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
+        .mesh-gradient {
+          background: linear-gradient(135deg, rgba(129, 161, 193, 0.15) 0%, rgba(136, 192, 208, 0.1) 25%, rgba(139, 188, 187, 0.08) 50%, rgba(163, 190, 140, 0.15) 100%);
         }
-        @keyframes glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-          50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.8); }
+        .terminal-border {
+          border-left: 3px solid rgba(191, 97, 106, 0.4);
+          padding-left: 1rem;
         }
-        @keyframes slide-in {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes pulse-glow {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 1; }
-        }
-        @keyframes blob {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-        }
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-        .animate-glow {
-          animation: glow 3s ease-in-out infinite;
-        }
-        .animate-slide-in {
-          animation: slide-in 0.6s ease-out;
-        }
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out;
-        }
-        .animate-pulse-glow {
-          animation: pulse-glow 3s ease-in-out infinite;
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .hero-gradient {
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
-        }
-        .card-hover {
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .card-hover:hover {
-          transform: translateY(-8px);
-        }
-        .gradient-text {
-          background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        .blob {
-          position: absolute;
-          border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-          filter: blur(80px);
-          opacity: 0.3;
+        .glow-text {
+          text-shadow: 0 0 30px rgba(208, 135, 112, 0.4);
         }
       `}</style>
 
-      {/* Background Blobs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="blob absolute top-10 right-10 w-72 h-72 bg-blue-500 animate-blob"></div>
-        <div className="blob absolute bottom-20 left-10 w-72 h-72 bg-purple-500 animate-blob" style={{ animationDelay: '2s' }}></div>
-      </div>
-
       {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-lg border-b border-gray-800' : 'bg-transparent'}`}>
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-nord-1/80 backdrop-blur-md border-b border-nord-3/30' : 'bg-transparent'}`}>
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 animate-fade-in">
-            <PieChart className="w-6 h-6 text-blue-400" />
-            <h1 className="text-xl font-bold gradient-text">FinTrack</h1>
-          </div>
+          <Link to="/" className="flex items-center gap-3 group">
+            <PieChart className="w-6 h-6 text-frost-3 group-hover:text-frost-2 transition-colors" />
+            <h1 className="text-xl font-display font-700 bg-gradient-to-r from-frost-3 to-frost-2 bg-clip-text text-transparent">FinTrack</h1>
+          </Link>
           <div className="flex items-center gap-4">
-            <Link to="/login" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Sign in</Link>
-            <Link to="/register" className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-medium hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300">Get started</Link>
+            <Link to="/login" className="text-nord-4 hover:text-frost-2 transition-colors font-mono text-sm font-500">$ login</Link>
+            <Link to="/register" className="px-6 py-2.5 bg-gradient-to-r from-aurora-2 to-aurora-1 text-nord-0 rounded-lg font-display font-600 hover:shadow-lg hover:shadow-aurora-1/40 transition-all duration-200 transform hover:scale-105 text-sm">
+              get started
+            </Link>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-16">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="animate-slide-in space-y-8 text-center">
-            <div className="inline-block">
-              <div className="px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full backdrop-blur-sm">
-                <p className="text-sm text-blue-300 font-medium">Welcome to Financial Finance</p>
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-16 mesh-gradient">
+        {/* Decorative element */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl opacity-10 bg-frost-3"></div>
+          <div className="absolute -bottom-40 left-20 w-96 h-96 rounded-full blur-3xl opacity-10 bg-aurora4"></div>
+        </div>
+
+        <div className="max-w-6xl mx-auto w-full relative z-10">
+          <div className="space-y-8">
+            {/* Badge */}
+            <div className="inline-block animate-fade-in">
+              <div className="px-4 py-2 bg-nord-2/40 border border-frost-3/30 rounded-2xl backdrop-blur-sm hover:border-frost-3/60 transition-all">
+                <p className="text-sm text-frost-3 font-mono uppercase tracking-wider">→ The future of finance starts here</p>
               </div>
             </div>
 
-            <h2 className="text-6xl md:text-7xl font-bold leading-tight">
-              Take Control of Your
-              <span className="block mt-2 gradient-text">Financial Future</span>
-            </h2>
+            {/* Main Headline */}
+            <div className="space-y-6 animate-slide-up">
+              <h2 className="text-6xl md:text-7xl lg:text-8xl font-display font-700 leading-tight tracking-tight">
+                Take Control
+                <br />
+                <span className="bg-gradient-to-r from-aurora-2 via-frost-2 to-frost-3 bg-clip-text text-transparent">of Your Assets</span>
+              </h2>
 
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-              Real-time transaction monitoring, intelligent analytics, and budgeting tools that empower you to make smarter financial decisions.
-            </p>
+              <p className="text-xl text-nord-5 max-w-3xl leading-relaxed">
+                Real-time transaction monitoring. Predictive analytics. Intelligent budgeting. All in one dashboard designed for modern financial decision-making.
+              </p>
+            </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link to="/register" className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105">
-                Start Free <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+              <Link to="/register" className="group px-8 py-4 bg-gradient-to-r from-aurora-2 to-aurora-1 text-nord-0 rounded-lg font-display font-600 flex items-center justify-center gap-2 hover:shadow-2xl hover:shadow-aurora-1/40 transition-all duration-200 transform hover:scale-105">
+                Start Free Trial <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link to="/login" className="px-8 py-4 bg-gray-800/50 border border-gray-700 text-white rounded-lg font-semibold hover:bg-gray-700/50 transition-all duration-300 backdrop-blur-sm">
-                Sign In
+              <Link to="/api-docs" className="px-8 py-4 bg-frost-3/20 border border-frost-3/50 text-frost-2 rounded-lg font-display font-600 hover:bg-frost-3/30 hover:border-frost-3/70 transition-all duration-200">
+                API Docs
               </Link>
             </div>
 
-            <p className="text-gray-500 text-sm">No credit card required • 14-day free trial</p>
+            <p className="text-nord-3 text-sm">• No credit card required • 14-day free trial • Instant activation</p>
           </div>
-        </div>
 
-        {/* Scrolling element */}
-        <div className="absolute bottom-10 animate-float">
-          <ChevronRight className="w-6 h-6 text-gray-500 animate-pulse-glow transform -rotate-90" />
+          {/* Scroll indicator */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <ChevronRight className="w-6 h-6 text-nord-3 rotate-90" />
+          </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="relative py-24 px-6">
+      {/* Features Section - Asymmetric Grid */}
+      <section className="relative py-32 px-6 bg-gradient-to-b from-nord-0 to-nord-1/40">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h3 className="text-4xl md:text-5xl font-bold mb-4">Powerful features for control</h3>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">Everything you need to manage, monitor, and optimize your finances in one place.</p>
+          <div className="mb-20">
+            <p className="text-aurora-2 font-mono text-sm uppercase tracking-widest mb-4">Features</p>
+            <h3 className="text-5xl md:text-6xl font-display font-700 leading-tight mb-6 text-nord-6">
+              Professional tools for
+              <br />
+              financial control
+            </h3>
+            <p className="text-frost-2 text-lg max-w-2xl">Everything engineered for precision, performance, and peace of mind.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {features.map((feature, idx) => {
               const Icon = feature.icon
+              const colSpan = idx === 0 ? 'md:col-span-6' : 'md:col-span-3'
               return (
                 <div 
-                  key={idx} 
-                  className="card-hover group relative p-6 bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-xl hover:border-blue-500/50 backdrop-blur-sm"
-                  style={{ animationDelay: `${idx * 100}ms` }}
+                  key={idx}
+                  className={`${colSpan} group animate-stagger-${idx + 1}`}
                 >
-                  <div className={`inline-block p-3 rounded-lg bg-gradient-to-br ${feature.color} mb-4`}>
-                    <Icon className="w-6 h-6 text-white" />
+                  <div className="h-full stat-card bg-gradient-to-br from-nord-2/40 via-nord-1/20 to-nord-0/10 hover:from-nord-2/60 hover:via-nord-1/40 hover:to-nord-0/20">
+                    <div className="stat-card-content">
+                      <div className={`inline-block p-3 rounded-xl bg-${feature.accent}/10 border border-${feature.accent}/30 mb-4 group-hover:bg-${feature.accent}/20 transition-all`}>
+                        <Icon className={`w-6 h-6 text-${feature.accent}`} />
+                      </div>
+                      <h4 className="text-xl font-display font-600 text-nord-5 mb-3">{feature.title}</h4>
+                      <p className="text-nord-3 font-mono text-sm leading-relaxed">{feature.description}</p>
+                    </div>
                   </div>
-                  <h4 className="text-lg font-bold mb-2">{feature.title}</h4>
-                  <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:to-purple-500/5 rounded-xl transition-all duration-300"></div>
                 </div>
               )
             })}
@@ -203,14 +165,23 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="relative py-16 px-6">
+      {/* Stats Section - Terminal Style */}
+      <section className="relative py-32 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="mb-16">
+            <p className="text-frost-3 font-mono text-sm uppercase tracking-widest mb-4">By The Numbers</p>
+            <h3 className="text-4xl font-display font-700">Trusted by thousands</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {stats.map((stat, idx) => (
-              <div key={idx} className="text-center p-8 bg-gray-900/50 border border-gray-800 rounded-lg backdrop-blur-sm hover:border-gray-700 transition-all duration-300">
-                <div className="text-4xl font-bold gradient-text mb-2">{stat.value}</div>
-                <p className="text-gray-400">{stat.label}</p>
+              <div key={idx} className={`stat-card bg-gradient-to-br from-nord-2/40 to-nord-1/20 border-${stat.accent}/30 animate-stagger-${idx + 1}`}>
+                <div className="stat-card-content">
+                  <div className={`text-5xl font-display font-700 bg-gradient-to-r from-${stat.accent} to-frost-2 bg-clip-text text-transparent mb-3`}>
+                    {stat.value}
+                  </div>
+                  <p className="text-nord-3 font-mono text-sm">{stat.label}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -218,19 +189,23 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-24 px-6">
+      <section className="relative py-32 px-6 bg-gradient-to-b from-nord-1/40 to-nord-0">
         <div className="max-w-4xl mx-auto">
-          <div className="relative p-12 md:p-16 rounded-2xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 backdrop-blur-lg overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5"></div>
-            <div className="relative z-10 text-center">
-              <h3 className="text-4xl md:text-5xl font-bold mb-4">Ready to transform your finances?</h3>
-              <p className="text-gray-300 text-lg mb-8">Join thousands of users already managing their money smarter with FinTrack.</p>
+          <div className="stat-card bg-gradient-to-r from-nord-2/60 to-nord-1/40 border-frost-3/40 overflow-hidden relative">
+            {/* Background ornament */}
+            <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full blur-3xl opacity-5 bg-frost-3 pointer-events-none"></div>
+            
+            <div className="stat-card-content relative z-10 text-center">
+              <h3 className="text-5xl font-display font-700 text-nord-5 mb-6">Ready to optimize?</h3>
+              <p className="text-nord-3 text-lg font-mono mb-10 max-w-2xl mx-auto">
+                Join the community of users taking control of their financial future.
+              </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/register" className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105">
-                  Get Started Free
+                <Link to="/register" className="px-8 py-4 bg-gradient-to-r from-frost-3 to-frost-2 text-nord-0 rounded-xl font-display font-600 hover:shadow-2xl hover:shadow-frost-3/30 transition-all duration-200 transform hover:scale-105">
+                  Start Free Trial
                 </Link>
-                <Link to="/login" className="px-8 py-4 bg-gray-800/50 border border-gray-700 text-white rounded-lg font-semibold hover:bg-gray-700/50 transition-all duration-300">
-                  Already a member?
+                <Link to="/api-docs" className="px-8 py-4 bg-nord-3/20 border border-nord-3/40 text-nord-4 rounded-xl font-display font-600 hover:bg-nord-3/30 transition-all duration-200">
+                  View Documentation
                 </Link>
               </div>
             </div>
@@ -239,40 +214,48 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-gray-800 py-12 px-6">
+      <footer className="relative border-t border-nord-3/20 py-16 px-6 bg-nord-1/20">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center gap-2 mb-4">
-                <PieChart className="w-5 h-5 text-blue-400" />
-                <h4 className="font-bold">FinTrack</h4>
-              </div>
-              <p className="text-gray-400 text-sm">Empowering financial decisions through real-time monitoring and intelligent analytics.</p>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div>
+              <Link to="/" className="flex items-center gap-2 mb-6 group">
+                <PieChart className="w-5 h-5 text-frost-3 group-hover:text-frost-2 transition-colors" />
+                <span className="font-display font-700 text-nord-5">FinTrack</span>
+              </Link>
+              <p className="text-nord-3 font-mono text-sm leading-relaxed">Empowering financial transparency through real-time monitoring and predictive intelligence.</p>
             </div>
             <div>
-              <h5 className="font-semibold mb-4">Product</h5>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
+              <h5 className="font-display font-600 text-nord-5 mb-4">Product</h5>
+              <ul className="space-y-2 text-sm font-mono text-nord-3">
+                <li><a href="#" className="hover:text-frost-3 transition-colors">→ Features</a></li>
+                <li><a href="#" className="hover:text-frost-3 transition-colors">→ Pricing</a></li>
+                <li><a href="#" className="hover:text-frost-3 transition-colors">→ Security</a></li>
               </ul>
             </div>
             <div>
-              <h5 className="font-semibold mb-4">Legal</h5>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Status</a></li>
+              <h5 className="font-display font-600 text-nord-5 mb-4">Resources</h5>
+              <ul className="space-y-2 text-sm font-mono text-nord-3">
+                <li><a href="#" className="hover:text-frost-3 transition-colors">→ API Docs</a></li>
+                <li><a href="#" className="hover:text-frost-3 transition-colors">→ Blog</a></li>
+                <li><a href="#" className="hover:text-frost-3 transition-colors">→ Status</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="font-display font-600 text-nord-5 mb-4">Legal</h5>
+              <ul className="space-y-2 text-sm font-mono text-nord-3">
+                <li><a href="#" className="hover:text-frost-3 transition-colors">→ Privacy</a></li>
+                <li><a href="#" className="hover:text-frost-3 transition-colors">→ Terms</a></li>
+                <li><a href="#" className="hover:text-frost-3 transition-colors">→ Compliance</a></li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-500 text-sm">© {new Date().getFullYear()} FinTrack. All rights reserved.</p>
-            <div className="flex gap-6 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Twitter</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">LinkedIn</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">GitHub</a>
+          <div className="border-t border-nord-3/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-nord-3 text-sm font-mono">© {new Date().getFullYear()} FinTrack. All systems operational.</p>
+            <div className="flex gap-6">
+              <a href="#" className="text-nord-3 hover:text-frost-3 transition-colors font-mono text-sm">Twitter</a>
+              <a href="#" className="text-nord-3 hover:text-frost-3 transition-colors font-mono text-sm">GitHub</a>
+              <a href="#" className="text-nord-3 hover:text-frost-3 transition-colors font-mono text-sm">Discord</a>
             </div>
           </div>
         </div>
