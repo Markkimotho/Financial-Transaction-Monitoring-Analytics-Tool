@@ -39,42 +39,34 @@ export const useAuthStore = create<AuthState>((set) => ({
   login: async (username, password) => {
     set({ isLoading: true, error: null })
     try {
-      console.log('Auth store: logging in user...')
-      const { data } = await authAPI.login({ username, password })
-      console.log('Auth store: login response received, tokens:', data.access ? 'yes' : 'no')
+      console.log('🔐 Login: sending credentials')
+      const response = await authAPI.login({ username, password })
+      const { data } = response
+      
+      console.log('🔐 Login: got tokens')
       localStorage.setItem('access_token', data.access)
       localStorage.setItem('refresh_token', data.refresh)
       
-      // Fetch user info from /users/me/ endpoint
       try {
-        console.log('Auth store: fetching user info...')
         const userResponse = await authAPI.getCurrentUser()
-        console.log('Auth store: user info:', userResponse.data)
+        console.log('🔐 Login: authenticated as', userResponse.data.username)
         set({
           user: userResponse.data,
           isAuthenticated: true,
           isLoading: false,
         })
-      } catch (err) {
-        // If we can't fetch user, still set as authenticated (tokens are valid)
-        console.warn('Auth store: Failed to fetch user info, but authentication succeeded', err)
+      } catch (userErr) {
+        console.log('🔐 Login: no user info, but using tokens')
         set({
-          user: {
-            id: '',
-            email: '',
-            username: ''
-          },
+          user: { id: '', email: '', username },
           isAuthenticated: true,
           isLoading: false,
         })
       }
     } catch (error: any) {
-      console.error('Auth store: login error', error)
-      const message = error.response?.data?.detail || 'Login failed'
-      set({
-        error: message,
-        isLoading: false,
-      })
+      const msg = error.response?.data?.detail || error.message || 'Login failed'
+      console.error('🔐 Login error:', msg)
+      set({ error: msg, isLoading: false })
       throw error
     }
   },
@@ -85,22 +77,15 @@ export const useAuthStore = create<AuthState>((set) => ({
       await authAPI.register(data)
       set({ isLoading: false })
     } catch (error: any) {
-      const message = error.response?.data?.detail || 'Registration failed'
-      set({
-        error: message,
-        isLoading: false,
-      })
+      const msg = error.response?.data?.detail || 'Registration failed'
+      set({ error: msg, isLoading: false })
       throw error
     }
   },
 
   logout: () => {
     authAPI.logout()
-    set({
-      user: null,
-      isAuthenticated: false,
-      error: null,
-    })
+    set({ user: null, isAuthenticated: false, error: null })
   },
 
   clearError: () => {
@@ -108,7 +93,6 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   loadUser: () => {
-    // This would fetch from /users/me/ endpoint
     const token = localStorage.getItem('access_token')
     if (token) {
       set({ isAuthenticated: true })
