@@ -107,14 +107,26 @@ A comprehensive, secure, and intuitive financial tracking platform for individua
    python manage.py createsuperuser
    ```
 
-7. **Run development server**
+7. **Run development servers**
+
+   **Terminal 1 - Backend (Django)**
    ```bash
+   cd src
    python manage.py runserver
    ```
+   - API: `http://localhost:8000/api/`
+   - API Documentation: `http://localhost:8000/api/docs/`
+   - Admin interface: `http://localhost:8000/admin/`
 
-   API will be available at `http://localhost:8000/api/`
-   API Documentation at `http://localhost:8000/api/docs/`
-   Admin interface at `http://localhost:8000/admin/`
+   **Terminal 2 - Frontend (React)**
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+   - Application: `http://localhost:3000`
+   - Frontend will automatically proxy API requests to backend
+
+   Both servers must be running for full functionality.
 
 ## API Endpoints
 
