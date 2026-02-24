@@ -49,6 +49,8 @@ dist/
 .dynamodb/
 .tern-port
 Thumbs.db
+DEPLOYMENT_GUIDE.md
+
 
 
 
