@@ -84,7 +84,7 @@ export default function DashboardPage() {
             icon={Wallet}
             label="Net Income"
             value={`$${netIncome.toFixed(2)}`}
-            subvalue={netIncome >= 0 ? '✓ Positive flow' : '✗ Negative flow'}
+            subvalue={netIncome >= 0 ? '[POSITIVE] Positive flow' : '[NEGATIVE] Negative flow'}
             color={netIncome >= 0 ? 'aurora4' : 'aurora3'}
             stagger={1}
           />
@@ -196,7 +196,7 @@ export default function DashboardPage() {
                 className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-frost-3/20 border border-frost-3/40 text-frost-3 hover:bg-frost-3/30 hover:border-frost-3/60 transition-all duration-200 hover:shadow-lg hover:shadow-frost-3/20 cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <span>⊕</span> Add Transaction
+                  <span>[+]</span> Add Transaction
                 </span>
               </button>
               
@@ -205,7 +205,7 @@ export default function DashboardPage() {
                 className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-frost-2/20 border border-frost-2/40 text-frost-2 hover:bg-frost-2/30 hover:border-frost-2/60 transition-all duration-200 hover:shadow-lg hover:shadow-frost-2/20 cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <span>⊕</span> Create Budget
+                  <span>[+]</span> Create Budget
                 </span>
               </button>
               
@@ -214,7 +214,7 @@ export default function DashboardPage() {
                 className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-aurora4/20 border border-aurora4/40 text-aurora4 hover:bg-aurora4/30 hover:border-aurora4/60 transition-all duration-200 hover:shadow-lg hover:shadow-aurora4/20 cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <span>📊</span> Analytics
+                  <span>[*]</span> Analytics
                 </span>
               </button>
               
@@ -223,7 +223,7 @@ export default function DashboardPage() {
                 className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-aurora3/20 border border-aurora3/40 text-aurora3 hover:bg-aurora3/30 hover:border-aurora3/60 transition-all duration-200 hover:shadow-lg hover:shadow-aurora3/20 cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <span>⚙</span> Settings
+                  <span>[=]</span> Settings
                 </span>
               </button>
             </div>

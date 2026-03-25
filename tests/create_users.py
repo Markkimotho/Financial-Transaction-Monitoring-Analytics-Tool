@@ -21,9 +21,9 @@ if not User.objects.filter(username='admin').exists():
         first_name='Admin',
         last_name='User'
     )
-    print("✓ Superuser 'admin' created (password: admin123)")
+    print("[OK] Superuser 'admin' created (password: admin123)")
 else:
-    print("✓ Superuser 'admin' already exists")
+    print("[OK] Superuser 'admin' already exists")
 
 # Create test user
 if not User.objects.filter(username='testuser').exists():
@@ -35,9 +35,9 @@ if not User.objects.filter(username='testuser').exists():
         last_name='User',
         currency_preference='KES'
     )
-    print("✓ Test user 'testuser' created (password: testpass123)")
+    print("[OK] Test user 'testuser' created (password: testpass123)")
 else:
-    print("✓ Test user 'testuser' already exists")
+    print("[OK] Test user 'testuser' already exists")
 
-print(f"\n✓ Total users: {User.objects.count()}")
-print("✓ Users created successfully!")
+print(f"\n[OK] Total users: {User.objects.count()}")
+print("[OK] Users created successfully!")

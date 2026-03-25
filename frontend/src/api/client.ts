@@ -19,11 +19,11 @@ api.interceptors.request.use((config) => {
 // Handle responses
 api.interceptors.response.use(
   (response) => {
-    console.log(`✓ ${response.status} response from ${response.config.url}`)
+    console.log(`[${response.status}] response from ${response.config.url}`)
     return response
   },
   (error) => {
-    console.error(`✗ Error:`, {
+    console.error(`[ERROR]`, {
       status: error.response?.status,
       message: error.message,
       url: error.config?.url,

@@ -14,7 +14,7 @@ echo "1. Testing backend connectivity..."
 if curl -s -f -o /dev/null "$API_URL/transactions/"; then
     echo "   ✓ Backend is accessible (but needs auth)"
 else
-    echo "   ✗ Backend is not running or not accessible"
+    echo "   [ERROR] Backend is not running or not accessible"
     echo "   Make sure to run: cd src && python manage.py runserver"
     exit 1
 fi
@@ -34,7 +34,7 @@ LOGIN_RESPONSE=$(curl -s -X POST "$API_URL/auth/login/" \
 ACCESS_TOKEN=$(echo "$LOGIN_RESPONSE" | grep -o '"access":"[^"]*' | cut -d'"' -f4)
 
 if [ -z "$ACCESS_TOKEN" ]; then
-    echo "   ✗ Login failed"
+    echo "   [ERROR] Login failed"
     echo "   Response: $LOGIN_RESPONSE"
     echo ""
     echo "   Try creating a test user first:"

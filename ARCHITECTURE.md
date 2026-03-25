@@ -894,13 +894,13 @@ Avoid:
   [BAD] Multiple lookups per request
 
 Good Practices:
-  ✓ select_related() for FK (1:1, foreign key)
-  ✓ prefetch_related() for reverse FK (1:N)
-  ✓ Filter by user first (WHERE user_id=...)
-  ✓ Use database aggregation (SUM, COUNT, AVG)
-  ✓ Paginate large results (20 items/page)
-  ✓ Cache computed fields and reports
-  ✓ Use indexes for filter columns
+  [OK] select_related() for FK (1:1, foreign key)
+  [OK] prefetch_related() for reverse FK (1:N)
+  [OK] Filter by user first (WHERE user_id=...)
+  [OK] Use database aggregation (SUM, COUNT, AVG)
+  [OK] Paginate large results (20 items/page)
+  [OK] Cache computed fields and reports
+  [OK] Use indexes for filter columns
 
 Example:
   transactions = (

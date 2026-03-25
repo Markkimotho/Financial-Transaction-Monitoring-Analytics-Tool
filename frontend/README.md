@@ -92,20 +92,20 @@ Output is in the `dist/` directory. Deploy this to your hosting provider.
 
 ## Features
 
-### 🔐 Authentication
+### [LOCK] Authentication
 - User registration and login
 - JWT token management with auto-refresh
 - Protected routes with automatic redirect
 - Secure token storage in localStorage
 
-### 📊 Dashboard
+### [CHART] Dashboard
 - Quick overview of financial summary
 - Income vs. expense breakdown
 - Monthly spending snapshot
 - Budget status at a glance
 - Quick action buttons
 
-### 💳 Transactions
+### [CARD] Transactions
 - List all transactions with filtering
 - Create new transactions with category selection
 - Soft delete with recovery option
@@ -120,14 +120,14 @@ Output is in the `dist/` directory. Deploy this to your hosting provider.
 - Budget overrun alerts
 - Budget status indicators
 
-### 📈 Analytics
+### [TRENDING_UP] Analytics
 - Monthly income and expense summary
 - Spending by category breakdown
 - Savings rate calculation
 - Month-over-month comparisons (ready to implement)
 - Downloadable reports (ready to implement)
 
-### ⚙️ Settings
+### [SETTINGS] Settings
 - Profile information view
 - Currency preference selection
 - Theme selection (light/dark/auto)

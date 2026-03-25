@@ -39,24 +39,24 @@ export const useAuthStore = create<AuthState>((set) => ({
   login: async (username, password) => {
     set({ isLoading: true, error: null })
     try {
-      console.log('🔐 Login: sending credentials')
+      console.log('[AUTH] Login: sending credentials')
       const response = await authAPI.login({ username, password })
       const { data } = response
       
-      console.log('🔐 Login: got tokens')
+      console.log('[AUTH] Login: got tokens')
       localStorage.setItem('access_token', data.access)
       localStorage.setItem('refresh_token', data.refresh)
       
       try {
         const userResponse = await authAPI.getCurrentUser()
-        console.log('🔐 Login: authenticated as', userResponse.data.username)
+        console.log('[AUTH] Login: authenticated as', userResponse.data.username)
         set({
           user: userResponse.data,
           isAuthenticated: true,
           isLoading: false,
         })
       } catch (userErr) {
-        console.log('🔐 Login: no user info, but using tokens')
+        console.log('[AUTH] Login: no user info, but using tokens')
         set({
           user: { id: '', email: '', username },
           isAuthenticated: true,
@@ -65,7 +65,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       }
     } catch (error: any) {
       const msg = error.response?.data?.detail || error.message || 'Login failed'
-      console.error('🔐 Login error:', msg)
+      console.error('[AUTH] Login error:', msg)
       set({ error: msg, isLoading: false })
       throw error
     }

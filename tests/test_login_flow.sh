@@ -5,14 +5,14 @@ API_URL="http://localhost:8000/api"
 USERNAME="testuser"
 PASSWORD="TestPassword123!"
 
-echo "🔐 Testing Financial Monitoring & Analytics Login Flow"
+echo "[LOCK] Testing Financial Monitoring & Analytics Login Flow"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # Test 1: Check if server is running
 echo ""
 echo "1️⃣  Checking server connectivity..."
 if ! curl -s "${API_URL}/" > /dev/null 2>&1; then
-  echo "❌ Server is not responding at ${API_URL}"
+  echo "[FAIL] Server is not responding at ${API_URL}"
   exit 1
 fi
 echo "✓ Server is running at ${API_URL}"
@@ -32,7 +32,7 @@ ACCESS_TOKEN=$(echo "$LOGIN_RESPONSE" | grep -o '"access":"[^"]*' | cut -d'"' -f
 REFRESH_TOKEN=$(echo "$LOGIN_RESPONSE" | grep -o '"refresh":"[^"]*' | cut -d'"' -f4)
 
 if [ -z "$ACCESS_TOKEN" ]; then
-  echo "❌ Login failed - no access token in response"
+  echo "[FAIL] Login failed - no access token in response"
   echo "Full response: $LOGIN_RESPONSE"
   exit 1
 fi
@@ -52,7 +52,7 @@ USER_RESPONSE=$(curl -s -X GET "${API_URL}/users/me/" \
 USERNAME_RESPONSE=$(echo "$USER_RESPONSE" | grep -o '"username":"[^"]*' | cut -d'"' -f4)
 
 if [ -z "$USERNAME_RESPONSE" ]; then
-  echo "❌ Failed to fetch user info"
+  echo "[FAIL] Failed to fetch user info"
   echo "Full response: $USER_RESPONSE"
   exit 1
 fi
@@ -60,7 +60,7 @@ fi
 echo "✓ User info retrieved!"
 echo "  Username: ${USERNAME_RESPONSE}"
 echo ""
-echo "✅ All tests passed! Login flow is working correctly."
+echo "[PASS] All tests passed! Login flow is working correctly."
 echo ""
 echo "🔑 Credentials for testing:"
 echo "  Username: ${USERNAME}"

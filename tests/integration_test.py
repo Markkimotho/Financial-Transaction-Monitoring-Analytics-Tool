@@ -43,12 +43,12 @@ def test_frontend_backend_integration():
         result = subprocess.run(["curl", "-s", "http://localhost:8000/"], 
                               capture_output=True, text=True, timeout=3)
         if result.returncode == 0 or "404" in result.stdout or len(result.stdout) > 0:
-            print("✅ Backend running on localhost:8000")
+            print("[PASS] Backend running on localhost:8000")
         else:
-            print("❌ Backend not responding correctly")
+            print("[FAIL] Backend not responding correctly")
             return False
     except Exception as e:
-        print(f"❌ Backend health check failed: {e}")
+        print(f"[FAIL] Backend health check failed: {e}")
         return False
     
     # Test 2: Verify Frontend is running
@@ -57,12 +57,12 @@ def test_frontend_backend_integration():
         result = subprocess.run(["curl", "-s", "http://localhost:3000/"], 
                               capture_output=True, text=True, timeout=3)
         if "root" in result.stdout and "main.tsx" in result.stdout:
-            print("✅ Frontend running on localhost:3000")
+            print("[PASS] Frontend running on localhost:3000")
         else:
-            print("❌ Frontend not responding correctly")
+            print("[FAIL] Frontend not responding correctly")
             return False
     except Exception as e:
-        print(f"❌ Frontend health check failed: {e}")
+        print(f"[FAIL] Frontend health check failed: {e}")
         return False
     
     # Test 3: User Login Flow
@@ -74,9 +74,9 @@ def test_frontend_backend_integration():
     
     if "access" in login_response:
         access_token = login_response["access"]
-        print(f"✅ Login successful - Token: {access_token[:20]}...")
+        print(f"[PASS] Login successful - Token: {access_token[:20]}...")
     else:
-        print(f"❌ Login failed: {login_response}")
+        print(f"[FAIL] Login failed: {login_response}")
         return False
     
     # Test 4: Get User Profile
@@ -84,9 +84,9 @@ def test_frontend_backend_integration():
     profile = _run_curl("GET", "/users/me/", token=access_token)
     
     if "id" in profile and "username" in profile:
-        print(f"✅ Profile retrieved - User: {profile['username']}")
+        print(f"[PASS] Profile retrieved - User: {profile['username']}")
     else:
-        print(f"❌ Could not fetch profile: {profile}")
+        print(f"[FAIL] Could not fetch profile: {profile}")
         return False
     
     # Test 5: Create Category
@@ -98,9 +98,9 @@ def test_frontend_backend_integration():
     
     if "id" in category:
         category_id = category["id"]
-        print(f"✅ Category created - ID: {category_id}")
+        print(f"[PASS] Category created - ID: {category_id}")
     else:
-        print(f"❌ Category creation failed: {category}")
+        print(f"[FAIL] Category creation failed: {category}")
         return False
     
     # Test 6: Create Transaction
@@ -115,9 +115,9 @@ def test_frontend_backend_integration():
     
     if "id" in transaction:
         transaction_id = transaction["id"]
-        print(f"✅ Transaction created - ID: {transaction_id}, Amount: ${transaction['amount']}")
+        print(f"[PASS] Transaction created - ID: {transaction_id}, Amount: ${transaction['amount']}")
     else:
-        print(f"❌ Transaction creation failed: {transaction}")
+        print(f"[FAIL] Transaction creation failed: {transaction}")
         return False
     
     # Test 7: List Transactions
@@ -126,9 +126,9 @@ def test_frontend_backend_integration():
     
     if isinstance(transactions, dict) and ("results" in transactions or isinstance(transactions, list)):
         count = len(transactions.get("results", transactions)) if isinstance(transactions, dict) else len(transactions)
-        print(f"✅ Transactions retrieved - Count: {count}")
+        print(f"[PASS] Transactions retrieved - Count: {count}")
     else:
-        print(f"❌ Could not list transactions: {transactions}")
+        print(f"[FAIL] Could not list transactions: {transactions}")
         return False
     
     # Test 8: Create Budget
@@ -140,9 +140,9 @@ def test_frontend_backend_integration():
     }, token=access_token)
     
     if "id" in budget:
-        print(f"✅ Budget created - Limit: ${budget['monthly_limit']}, Alert: {budget['alert_threshold']}%")
+        print(f"[PASS] Budget created - Limit: ${budget['monthly_limit']}, Alert: {budget['alert_threshold']}%")
     else:
-        print(f"❌ Budget creation failed: {budget}")
+        print(f"[FAIL] Budget creation failed: {budget}")
         return False
     
     # Test 9: Soft Delete Transaction
@@ -154,9 +154,9 @@ def test_frontend_backend_integration():
     deleted_tx = _run_curl("GET", f"/transactions/{transaction_id}/", token=access_token)
     
     if "is_deleted" in deleted_tx and deleted_tx["is_deleted"]:
-        print(f"✅ Soft delete successful - Transaction marked as deleted")
+        print(f"[PASS] Soft delete successful - Transaction marked as deleted")
     else:
-        print(f"❌ Soft delete failed or transaction not found")
+        print(f"[FAIL] Soft delete failed or transaction not found")
         return False
     
     # Test 10: Dashboard Summary
@@ -164,12 +164,12 @@ def test_frontend_backend_integration():
     summary = _run_curl("GET", "/transactions/summary/", token=access_token)
     
     if "total_transactions" in summary or "this_month" in summary:
-        print(f"✅ Dashboard summary retrieved")
+        print(f"[PASS] Dashboard summary retrieved")
         print(f"   - Total Transactions: {summary.get('total_transactions', 'N/A')}")
         print(f"   - Total Income: ${summary.get('total_income', 0)}")
         print(f"   - Total Expense: ${summary.get('total_expense', 0)}")
     else:
-        print(f"❌ Could not fetch summary: {summary}")
+        print(f"[FAIL] Could not fetch summary: {summary}")
         return False
     
     # Test 11: Check API Proxy (Frontend→Backend)
@@ -180,22 +180,22 @@ def test_frontend_backend_integration():
         with open("/Users/ktinega/Financial-Transaction-Monitoring-Analytics-Tool/frontend/vite.config.ts", "r") as f:
             vite_config = f.read()
             if "localhost:8000" in vite_config or "/api" in vite_config:
-                print("✅ Frontend API proxy configured correctly")
+                print("[PASS] Frontend API proxy configured correctly")
             else:
-                print("⚠️  API proxy configuration needs verification")
+                print("[WARNING]  API proxy configuration needs verification")
     except Exception as e:
-        print(f"⚠️  Could not verify proxy config: {e}")
+        print(f"[WARNING]  Could not verify proxy config: {e}")
     
     print("\n" + "="*70)
-    print("✅ ALL INTEGRATION TESTS PASSED!")
+    print("[PASS] ALL INTEGRATION TESTS PASSED!")
     print("="*70)
-    print("\n📊 Summary:")
+    print("\n[CHART] Summary:")
     print("   • Backend API: Fully operational")
     print("   • Frontend Server: Running on port 3000")
     print("   • Authentication: JWT tokens working")
     print("   • Database Operations: CRUD + soft deletes working")
     print("   • API Endpoints: All major features tested")
-    print("\n🎯 Next Steps:")
+    print("\n[TARGET] Next Steps:")
     print("   1. Open http://localhost:3000 in your browser")
     print("   2. Login with: testuser / TestPassword123")
     print("   3. Test the UI components (Dashboard, Transactions, Budgets, Analytics)")

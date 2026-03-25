@@ -21,15 +21,15 @@ def test_transactions():
         response = requests.get(f"{API_BASE}/transactions/", timeout=5)
         print(f"   Status: {response.status_code}")
         if response.status_code == 401:
-            print("   ✓ Backend is running (requires authentication)")
+            print("   [OK] Backend is running (requires authentication)")
         else:
             print(f"   Response: {response.text[:100]}")
     except requests.exceptions.ConnectionError:
-        print("   ✗ FAILED: Backend not running")
+        print("   [ERROR] FAILED: Backend not running")
         print("   Fix: cd src && python manage.py runserver")
         return False
     except Exception as e:
-        print(f"   ✗ Error: {e}")
+        print(f"   [ERROR] Error: {e}")
         return False
     
     # Test 2: Try login
@@ -42,18 +42,18 @@ def test_transactions():
         response = requests.post(f"{API_BASE}/auth/login/", json=login_data)
         
         if response.status_code != 200:
-            print(f"   ✗ Login failed ({response.status_code})")
+            print(f"   [ERROR] Login failed ({response.status_code})")
             print(f"   Response: {response.text}")
             print("   Fix: Create test user with: python create_users.py")
             return False
         
         data = response.json()
         token = data.get('access')
-        print(f"   ✓ Login successful")
+        print(f"   [OK] Login successful")
         print(f"   Token: {token[:30]}...")
         
     except Exception as e:
-        print(f"   ✗ Error: {e}")
+        print(f"   [ERROR] Error: {e}")
         return False
     
     # Test 3: Fetch transactions
@@ -63,17 +63,17 @@ def test_transactions():
         response = requests.get(f"{API_BASE}/transactions/", headers=headers)
         
         if response.status_code != 200:
-            print(f"   ✗ Failed ({response.status_code})")
+            print(f"   [ERROR] Failed ({response.status_code})")
             print(f"   Response: {response.text}")
             return False
         
         data = response.json()
         count = len(data.get('results', data) if isinstance(data, dict) else [])
-        print(f"   ✓ Transactions fetched successfully")
+        print(f"   [OK] Transactions fetched successfully")
         print(f"   Found {count} transactions")
         
     except Exception as e:
-        print(f"   ✗ Error: {e}")
+        print(f"   [ERROR] Error: {e}")
         return False
     
     # Test 4: Fetch categories
@@ -82,20 +82,20 @@ def test_transactions():
         response = requests.get(f"{API_BASE}/categories/", headers=headers)
         
         if response.status_code != 200:
-            print(f"   ✗ Failed ({response.status_code})")
+            print(f"   [ERROR] Failed ({response.status_code})")
             return False
         
         data = response.json()
         count = len(data.get('results', data) if isinstance(data, dict) else [])
-        print(f"   ✓ Categories fetched successfully")
+        print(f"   [OK] Categories fetched successfully")
         print(f"   Found {count} categories")
         
     except Exception as e:
-        print(f"   ✗ Error: {e}")
+        print(f"   [ERROR] Error: {e}")
         return False
     
     print("\n" + "="*60)
-    print("✓ ALL TESTS PASSED!")
+    print("[OK] ALL TESTS PASSED!")
     print("="*60)
     print("\nFrontend setup:")
     print("1. cd frontend")

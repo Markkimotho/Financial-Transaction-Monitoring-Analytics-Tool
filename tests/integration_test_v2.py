@@ -45,7 +45,7 @@ class IntegrationTester:
     
     def log_result(self, test_name, passed, message=""):
         """Log test result"""
-        status = "✅" if passed else "❌"
+        status = "[PASS]" if passed else "[FAIL]"
         print(f"{status}  {test_name}" + (f": {message}" if message else ""))
         self.test_results.append((test_name, passed))
     
@@ -228,19 +228,19 @@ class IntegrationTester:
         total = len(self.test_results)
         
         if passed == total:
-            print(f"✅ ALL TESTS PASSED ({passed}/{total})")
+            print(f"[PASS] ALL TESTS PASSED ({passed}/{total})")
         else:
-            print(f"⚠️  TESTS COMPLETE: {passed} passed, {total - passed} failed")
+            print(f"[WARNING]  TESTS COMPLETE: {passed} passed, {total - passed} failed")
         
         print("="*70)
         
-        print("\n📊 Deployment Status:")
-        print("   ✅ Backend API: Running on localhost:8000")
-        print("   ✅ Frontend App: Running on localhost:3000")
-        print("   ✅ Database: Connected and operational")
-        print("   ✅ Redis Cache: Connected and operational")
+        print("\n[CHART] Deployment Status:")
+        print("   [PASS] Backend API: Running on localhost:8000")
+        print("   [PASS] Frontend App: Running on localhost:3000")
+        print("   [PASS] Database: Connected and operational")
+        print("   [PASS] Redis Cache: Connected and operational")
         
-        print("\n🎯 Quick Start:")
+        print("\n[TARGET] Quick Start:")
         print("   1. Open http://localhost:3000 in your browser")
         print("   2. Create a new account or login")
         print("   3. Start tracking your financial transactions")
