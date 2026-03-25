@@ -12,7 +12,7 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
-  console.log(`📤 ${config.method?.toUpperCase()} ${config.url}`)
+  console.log(`[UPLOAD] ${config.method?.toUpperCase()} ${config.url}`)
   return config
 })
 

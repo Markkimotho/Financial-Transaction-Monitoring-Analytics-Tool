@@ -88,7 +88,7 @@ Add transactions → Create budgets → View analytics → Track finances
 - [WORLD] Currency preferences (USD, EUR, GBP, etc.)
 - [PALETTE] Theme selection (light/dark)
 - [LOCK] Security settings
-- 📤 Data export options
+- [UPLOAD] Data export options
 
 ---
 
@@ -195,8 +195,8 @@ Financial-Transaction-Monitoring-Analytics-Tool/
 │   ├── vite.config.ts           (Build configuration)
 │   └── tsconfig.json            (TypeScript config)
 │
-├── 📚 Documentation
-│   ├── DEPLOYMENT_COMPLETE.md   (🔴 READ THIS FIRST)
+├── [BOOKS] Documentation
+│   ├── DEPLOYMENT_COMPLETE.md   ([RED] READ THIS FIRST)
 │   ├── ARCHITECTURE.md          (Technical deep dive)
 │   ├── PRD.md                   (Product requirements)
 │   └── README.md                (This file)
@@ -484,7 +484,7 @@ EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
 ## 📞 Support & Resources
 
 ### Documentation
-- 📚 [Deployment Guide](DEPLOYMENT_COMPLETE.md) - Full setup instructions
+- [BOOKS] [Deployment Guide](DEPLOYMENT_COMPLETE.md) - Full setup instructions
 - 🏗️ [Architecture Guide](ARCHITECTURE.md) - Technical deep dive
 - [NOTES] [Product Specs](PRD.md) - Feature requirements
 - 🔗 [Frontend README](frontend/README.md) - React setup details

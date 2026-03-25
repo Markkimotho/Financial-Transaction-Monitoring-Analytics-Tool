@@ -10,16 +10,16 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 
 # Test 1: Check if server is running
 echo ""
-echo "1️⃣  Checking server connectivity..."
+echo "[1] Checking server connectivity..."
 if ! curl -s "${API_URL}/" > /dev/null 2>&1; then
   echo "[FAIL] Server is not responding at ${API_URL}"
   exit 1
 fi
-echo "✓ Server is running at ${API_URL}"
+echo "[OK] Server is running at ${API_URL}"
 
 # Test 2: Attempt login
 echo ""
-echo "2️⃣  Attempting login..."
+echo "[2] Attempting login..."
 LOGIN_RESPONSE=$(curl -s -X POST "${API_URL}/auth/login/" \
   -H "Content-Type: application/json" \
   -d "{\"username\":\"${USERNAME}\",\"password\":\"${PASSWORD}\"}")
@@ -38,13 +38,13 @@ if [ -z "$ACCESS_TOKEN" ]; then
 fi
 
 echo ""
-echo "✓ Login successful!"
+echo "[OK] Login successful!"
 echo "  Access Token: ${ACCESS_TOKEN:0:50}..."
 echo "  Refresh Token: ${REFRESH_TOKEN:0:50}..."
 
 # Test 3: Fetch current user
 echo ""
-echo "3️⃣  Fetching current user info..."
+echo "[3] Fetching current user info..."
 USER_RESPONSE=$(curl -s -X GET "${API_URL}/users/me/" \
   -H "Authorization: Bearer ${ACCESS_TOKEN}" \
   -H "Content-Type: application/json")
@@ -57,11 +57,11 @@ if [ -z "$USERNAME_RESPONSE" ]; then
   exit 1
 fi
 
-echo "✓ User info retrieved!"
+echo "[OK] User info retrieved!"
 echo "  Username: ${USERNAME_RESPONSE}"
 echo ""
 echo "[PASS] All tests passed! Login flow is working correctly."
 echo ""
-echo "🔑 Credentials for testing:"
+echo "[KEY] Credentials for testing:"
 echo "  Username: ${USERNAME}"
 echo "  Password: ${PASSWORD}"

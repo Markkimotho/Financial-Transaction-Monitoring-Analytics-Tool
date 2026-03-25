@@ -12,7 +12,7 @@ echo ""
 # Check if backend is running
 echo "1. Testing backend connectivity..."
 if curl -s -f -o /dev/null "$API_URL/transactions/"; then
-    echo "   ✓ Backend is accessible (but needs auth)"
+    echo "   [OK] Backend is accessible (but needs auth)"
 else
     echo "   [ERROR] Backend is not running or not accessible"
     echo "   Make sure to run: cd src && python manage.py runserver"
@@ -42,7 +42,7 @@ if [ -z "$ACCESS_TOKEN" ]; then
     exit 1
 fi
 
-echo "   ✓ Login successful"
+echo "   [OK] Login successful"
 echo "   Access Token: ${ACCESS_TOKEN:0:20}..."
 
 echo ""
@@ -54,7 +54,7 @@ echo "   Response: $TRANS_RESPONSE" | head -c 200
 echo ""
 
 echo ""
-echo "✓ API is working correctly!"
+echo "[OK] API is working correctly!"
 echo ""
 echo "Next steps:"
 echo "1. Frontend: npm run dev (in frontend directory)"

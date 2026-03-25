@@ -16,10 +16,10 @@ fi
 # Activate venv if it exists
 if [ -d "venv-backend" ]; then
     source venv-backend/bin/activate
-    echo "✓ Virtual environment activated"
+    echo "[OK] Virtual environment activated"
 elif [ -d ".venv" ]; then
     source .venv/bin/activate
-    echo "✓ Virtual environment activated"
+    echo "[OK] Virtual environment activated"
 fi
 
 echo ""

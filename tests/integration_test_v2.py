@@ -245,7 +245,7 @@ class IntegrationTester:
         print("   2. Create a new account or login")
         print("   3. Start tracking your financial transactions")
         
-        print("\n📚 API Documentation:")
+        print("\n[BOOKS] API Documentation:")
         print("   • Swagger UI: http://localhost:8000/api/docs/")
         print("   • ReDoc: http://localhost:8000/api/redoc/")
         print("   • Schema: http://localhost:8000/api/schema/")
