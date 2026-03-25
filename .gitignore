@@ -3,6 +3,7 @@ __pycache__/
 .env
 *.db
 venv/
+venv-backend/
 .env/
 node_modules/
 *.log

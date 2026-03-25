@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { transactionAPI, budgetAPI } from '@/api/client'
 import { TrendingUp, Wallet, Target, ArrowDownLeft } from 'lucide-react'
 
@@ -11,6 +12,7 @@ interface Summary {
 }
 
 export default function DashboardPage() {
+  const navigate = useNavigate()
   const [summary, setSummary] = useState<Summary | null>(null)
   const [budgetSummary, setBudgetSummary] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -189,27 +191,39 @@ export default function DashboardPage() {
           <div className="stat-card-content">
             <h3 className="text-lg font-display font-600 text-nord-5 mb-6 font-mono">$ quick actions</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <button className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-frost-3/20 border border-frost-3/40 text-frost-3 hover:bg-frost-3/30 hover:border-frost-3/60 transition-all duration-200 hover:shadow-lg hover:shadow-frost-3/20">
+              <button 
+                onClick={() => navigate('/transactions')}
+                className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-frost-3/20 border border-frost-3/40 text-frost-3 hover:bg-frost-3/30 hover:border-frost-3/60 transition-all duration-200 hover:shadow-lg hover:shadow-frost-3/20 cursor-pointer"
+              >
                 <span className="relative z-10 flex items-center gap-2">
                   <span>⊕</span> Add Transaction
                 </span>
               </button>
               
-              <button className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-frost-2/20 border border-frost-2/40 text-frost-2 hover:bg-frost-2/30 hover:border-frost-2/60 transition-all duration-200 hover:shadow-lg hover:shadow-frost-2/20">
+              <button 
+                onClick={() => navigate('/budgets')}
+                className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-frost-2/20 border border-frost-2/40 text-frost-2 hover:bg-frost-2/30 hover:border-frost-2/60 transition-all duration-200 hover:shadow-lg hover:shadow-frost-2/20 cursor-pointer"
+              >
                 <span className="relative z-10 flex items-center gap-2">
                   <span>⊕</span> Create Budget
                 </span>
               </button>
               
-              <button className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-aurora4/20 border border-aurora4/40 text-aurora4 hover:bg-aurora4/30 hover:border-aurora4/60 transition-all duration-200 hover:shadow-lg hover:shadow-aurora4/20">
+              <button 
+                onClick={() => navigate('/analytics')}
+                className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-aurora4/20 border border-aurora4/40 text-aurora4 hover:bg-aurora4/30 hover:border-aurora4/60 transition-all duration-200 hover:shadow-lg hover:shadow-aurora4/20 cursor-pointer"
+              >
                 <span className="relative z-10 flex items-center gap-2">
                   <span>📊</span> Analytics
                 </span>
               </button>
               
-              <button className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-aurora3/20 border border-aurora3/40 text-aurora3 hover:bg-aurora3/30 hover:border-aurora3/60 transition-all duration-200 hover:shadow-lg hover:shadow-aurora3/20">
+              <button 
+                onClick={() => navigate('/settings')}
+                className="group relative overflow-hidden rounded-xl px-4 py-3 font-mono font-500 text-sm bg-aurora3/20 border border-aurora3/40 text-aurora3 hover:bg-aurora3/30 hover:border-aurora3/60 transition-all duration-200 hover:shadow-lg hover:shadow-aurora3/20 cursor-pointer"
+              >
                 <span className="relative z-10 flex items-center gap-2">
-                  <span>↑</span> Import
+                  <span>⚙</span> Settings
                 </span>
               </button>
             </div>
