@@ -1,4 +1,4 @@
-# 🚀 Free Deployment Guide
+# Free Deployment Guide
 
 **Date**: February 24, 2026  
 **Purpose**: Deploy your app so anyone can access it (not localhost)
@@ -90,8 +90,7 @@ Custom Domain (Free):
 ```bash
 cd frontend
 
-# Clean up
-rm -rf node_modules .next
+# Install dependencies
 npm install
 
 # Build locally to test
@@ -145,7 +144,7 @@ vercel
 # When asked for API URL, use: https://yourapp.onrender.com/api
 ```
 
-**Result**: Your frontend is now live at `yourapp.vercel.app`
+**Result**: Your frontend is now live at yourapp.vercel.app
 
 ---
 
@@ -322,13 +321,13 @@ curl https://yourapp.onrender.com/api/auth/login/
 ## Final Checklist
 
 ```
-✅ Frontend
+[CHECK] Frontend
   ├─ Built successfully: npm run build
   ├─ Deployed to Vercel: yourapp.vercel.app
   ├─ Environment variables set: VITE_API_URL
   └─ Tests pass locally
 
-✅ Backend
+[CHECK] Backend
   ├─ Database migrated: python manage.py migrate
   ├─ Deployed to Render: yourapp.onrender.com
   ├─ Environment variables set (SECRET_KEY, DB_URL, etc)
@@ -336,19 +335,19 @@ curl https://yourapp.onrender.com/api/auth/login/
   ├─ CORS configured for Vercel
   └─ Tests pass locally
 
-✅ Integration
+[CHECK] Integration
   ├─ Frontend connects to backend
   ├─ Login works end-to-end
   ├─ Transactions can be created
   ├─ Analytics page loads
   └─ No console errors
 
-✅ Domain
+[CHECK] Domain
   ├─ Custom domain configured (optional)
   ├─ SSL/HTTPS working
   └─ Email set for alerts (if configured)
 
-✅ Monitoring
+[CHECK] Monitoring
   ├─ Error logs checked
   ├─ Performance acceptable
   └─ No sensitive data in logs
@@ -513,10 +512,10 @@ vercel
 
 ---
 
-**Your app will be live and shareable! 🎉**
+Your app will be live and shareable!
 
 Everyone can access it via:
-- Frontend: `https://yourapp.vercel.app`
-- API: `https://yourapp.onrender.com/api`
+- Frontend: https://yourapp.vercel.app
+- API: https://yourapp.onrender.com/api
 
 No localhost needed!

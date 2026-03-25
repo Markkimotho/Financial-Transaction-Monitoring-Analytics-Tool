@@ -1,4 +1,4 @@
-# 🎯 Financial Monitoring & Analytics Tool - LIVE & OPERATIONAL ✅
+# Financial Monitoring & Analytics Tool - LIVE & OPERATIONAL
 
 ## ⚡ Quick Access
 
@@ -11,7 +11,7 @@
 
 ---
 
-## 🚀 Getting Started (30 seconds)
+## Getting Started (30 seconds)
 
 ### Step 1: Open the Application
 ```bash
@@ -59,8 +59,8 @@ Add transactions → Create budgets → View analytics → Track finances
 
 ### Dashboard
 - 📈 Financial summary (income, expenses, net)
-- 💰 Transaction count by period
-- 🎯 Budget status overview
+- Transaction count by period
+- Budget status overview
 - ⚡ Quick action buttons
 
 ### Transactions
