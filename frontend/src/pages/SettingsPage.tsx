@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Shield, Download, Trash2, Lock, Bell } from 'lucide-react'
+import { Shield, Download, Trash2, Lock } from 'lucide-react'
 import { useAuthStore } from '@/store/auth'
 
 export default function SettingsPage() {
