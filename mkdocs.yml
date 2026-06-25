@@ -1,0 +1,36 @@
+site_name: Financial Transaction Monitoring & Analytics Tool
+site_url: https://markkimotho.github.io/Financial-Transaction-Monitoring-Analytics-Tool/
+repo_url: https://github.com/Markkimotho/Financial-Transaction-Monitoring-Analytics-Tool
+repo_name: Markkimotho/Financial-Transaction-Monitoring-Analytics-Tool
+docs_dir: docs
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle: { icon: material/weather-night, name: Switch to dark mode }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle: { icon: material/weather-sunny, name: Switch to light mode }
+  features:
+    - navigation.top
+    - content.code.copy
+    - toc.follow
+
+nav:
+  - Home: index.md
+  - Api Documentation: api_documentation.md
+  - Models: models.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+plugins:
+  - search
